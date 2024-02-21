@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    config:
+      uri: http://localhost:8888 # URL of your Config Server
+      fail-fast: true # If you want your application to fail startup if it cannot connect to the Config Server
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true # Enable automatic routing based on service discovery
+      routes:
+        - id: EmployeeService
+          uri: lb://EmployeeService # Use the service ID as registered in Eureka
+          predicates:
+            - Path=/employee/** # Route paths matching /employee/** to EmployeeService
+          filters:
+            - StripPrefix=1
+
+        - id: DepartmentService
+          uri: lb://DepartmentService # Use the service ID as registered in Eureka
+          predicates:
+            - Path=/department/** # Route paths matching /department/** to DepartmentService
+          filters:
+            - StripPrefix=1
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 8080 # Port for the Gateway Service
