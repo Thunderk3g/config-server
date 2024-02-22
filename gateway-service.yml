@@ -11,8 +11,8 @@ spring:
         locator:
           enabled: true # Enable automatic routing based on service discovery
       routes:
-        - id: EmployeeService
-          uri: lb://EmployeeService # Use the service ID as registered in Eureka
+        - id: employee-service
+          uri: lb://employee-service # Use the service ID as registered in Eureka
           predicates:
             - Path=/employee/** # Route paths matching /employee/** to EmployeeService
           # filters:
