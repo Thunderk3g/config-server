@@ -15,8 +15,8 @@ spring:
           uri: lb://EmployeeService # Use the service ID as registered in Eureka
           predicates:
             - Path=/employee/** # Route paths matching /employee/** to EmployeeService
-          filters:
-            - StripPrefix=1
+          # filters:
+          #   - StripPrefix=1
 
         - id: DepartmentService
           uri: lb://DepartmentService # Use the service ID as registered in Eureka
